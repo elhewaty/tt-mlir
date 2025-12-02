@@ -226,3 +226,47 @@ def test_matmul_ttnn_shapes_double_buffered(
         output_root=request.config.getoption("--path"),
         system_desc_path=request.config.getoption("--sys-desc"),
     )
+
+
+@pytest.mark.skip_config(["ttmetal", "p150"], reason="See issue #5341")
+@pytest.mark.parametrize(
+    "shape",
+    [
+        (32, 4096, 2048)
+    ],
+    ids=shape_str,
+)
+@pytest.mark.parametrize("use_tile_matmul", [False])
+@pytest.mark.parametrize("target", ["ttmetal"])
+def test_matmul_ttnn_shapes_1d(
+    shape: tuple[int, ...],
+    use_tile_matmul: bool,
+    target: str,
+    request,
+    device,
+):
+    lhs = (
+        shape[0],
+        shape[1],
+    )
+    rhs = (
+        shape[1],
+        shape[2],
+    )
+
+    options = [
+        f"matmul-interchange=2,0,1",
+        f"use-tile-matmul={use_tile_matmul}",
+    ]
+    compile_and_execute_ttir(
+        create_matmul_constrained_inputs(lhs, rhs),
+        [lhs, rhs],
+        target=target,
+        device=device,
+        custom_pipeline=f"ttir-to-ttmetal-pipeline{{{' '.join(options)}}}",
+        test_base=request.node.name,
+        module_dump=True,
+        print_ir=True,
+        output_root=request.config.getoption("--path"),
+        system_desc_path=request.config.getoption("--sys-desc"),
+    )
