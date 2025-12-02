@@ -3128,7 +3128,7 @@ def ttir_convolution_golden(
     weight_dilation = unpack_mlir_attr(weight_dilation_attr)
     feature_group_count = unpack_mlir_attr(feature_group_count_attr)
     batch_group_count = unpack_mlir_attr(batch_group_count_attr)
-    convolution_layout = None
+    convolution_layout = convolution_layout_attr
     output_dtype = mlir_type_to_torch_dtype(output_type_mlir)
 
     # Note: For simplicity, we assume batch_group_count == 1 (not handling batch groups in golden)
@@ -3293,16 +3293,9 @@ def ttir_convolution_golden(
         groups=groups,
     )
 
-    # Permute output back to the expected output layout if needed
-    if convolution_layout is not None:
-        if output_permutation != list(range(result.ndim)):
-            # Create permutation from NCHW to output layout
-            inverse_output_perm = [
-                output_permutation.index(i) for i in range(result.ndim)
-            ]
-            result = result.permute(inverse_output_perm)
-
-    return result.to(output_dtype)
+    # Transpose output back from NCHW to NHWC
+    result_nhwc = result.transpose(-2, -3).transpose(-1, -2)
+    return result_nhwc.to(output_dtype)
 
 
 def ttir_pooling_golden(
