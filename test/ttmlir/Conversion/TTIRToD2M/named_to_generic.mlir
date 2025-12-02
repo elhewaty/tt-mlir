@@ -185,7 +185,12 @@ module {
     // CHECK: linalg.generic{{.+}}iterator_types = ["parallel", "parallel"]
     // CHECK: d2m.tile_tanh
     %32= "ttir.tanh"(%31) : (!ttype) -> !ttype
-    return %32: !ttype
+    // named elementwise op, unary:
+    // CHECK: d2m.generic{{.+}}iterator_types = [#parallel, #parallel]
+    // CHECK: linalg.generic{{.+}}iterator_types = ["parallel", "parallel"]
+    // CHECK: d2m.tile_sigmoid
+    %33= "ttir.sigmoid"(%32) : (!ttype) -> !ttype
+    return %33: !ttype
   }
 
   // CHECK-LABEL: func @named_reductions_R
