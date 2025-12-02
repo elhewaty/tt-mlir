@@ -1188,7 +1188,7 @@ createEltwiseBinaryOp(FlatbufferObjectCache &cache, EltwiseBinaryOp op) {
     type = ::tt::target::ttnn::EltwiseBinaryOpType::LessEqual;
   } else if constexpr (std::is_same_v<EltwiseBinaryOp, LessThanOp>) {
     type = ::tt::target::ttnn::EltwiseBinaryOpType::LessThan;
-  } else if constexpr (std::is_same_v<EltwiseBinaryOp, DivideOp>) {
+  } else if constexpr (std::is_same_v<EltwiseBinaryOp, DivOp>) {
     type = ::tt::target::ttnn::EltwiseBinaryOpType::Divide;
   } else if constexpr (std::is_same_v<EltwiseBinaryOp, LogicalAndOp>) {
     type = ::tt::target::ttnn::EltwiseBinaryOpType::LogicalAnd;
@@ -2652,7 +2652,7 @@ emitTTNNOperation(FlatbufferObjectCache &cache, Operation *op,
                            createEltwiseBinaryOp(cache, logicalRightShiftOp),
                            debugString, locInfo);
   }
-  if (auto divOp = dyn_cast<DivideOp>(op); divOp) {
+  if (auto divOp = dyn_cast<DivOp>(op); divOp) {
     return createOperation(cache, createEltwiseBinaryOp(cache, divOp),
                            debugString, locInfo);
   }

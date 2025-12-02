@@ -3271,7 +3271,7 @@ void populateTTNNToEmitPyPatterns(MLIRContext *ctx, RewritePatternSet &patterns,
   //
   // clang-format off
   patterns.add<EltwiseBinaryOpConversionPattern<mlir::tt::ttnn::AddOp>,
-               EltwiseBinaryOpConversionPattern<mlir::tt::ttnn::DivideOp>,
+               EltwiseBinaryOpConversionPattern<mlir::tt::ttnn::DivOp>,
                EltwiseBinaryOpConversionPattern<mlir::tt::ttnn::EqualOp>,
                EltwiseBinaryOpConversionPattern<mlir::tt::ttnn::GreaterEqualOp>,
                EltwiseBinaryOpConversionPattern<mlir::tt::ttnn::GreaterThanOp>,

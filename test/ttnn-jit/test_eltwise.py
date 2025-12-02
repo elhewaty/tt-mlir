@@ -340,7 +340,7 @@ def mul(a, b):
 
 
 def div(a, b):
-    return ttnn.divide(a, b)
+    return ttnn.div(a, b)
 
 
 def logical_and(a, b):

@@ -2363,11 +2363,11 @@ class TTNNBuilder(Builder):
             unit_attrs=unit_attrs,
         )
 
-    def divide(
+    def div(
         self, in0: Operand, in1: Operand, unit_attrs: Optional[List[str]] = None
     ) -> OpView:
         """
-        Creates ``ttnn.divide``.
+        Creates ``ttnn.div``.
 
         *Elementwise division operation.*
 
@@ -2377,12 +2377,12 @@ class TTNNBuilder(Builder):
 
         Note: Division by zero behavior depends on the implementation and data type.
 
-        Mathematical definition: divide(x, y) = x / y
+        Mathematical definition: div(x, y) = x / y
 
         .. code-block:: mlir
 
             // Divide corresponding elements
-            %result = ttnn.divide(%lhs, %rhs, %output) : tensor<3xf32>, tensor<3xf32>, tensor<3xf32> -> tensor<3xf32>
+            %result = ttnn.div(%lhs, %rhs, %output) : tensor<3xf32>, tensor<3xf32>, tensor<3xf32> -> tensor<3xf32>
             // Input tensors:
             // lhs: [3.5, 0.0, -1.2]
             // rhs: [1.5, 2.0, -3.2]
@@ -2407,7 +2407,7 @@ class TTNNBuilder(Builder):
             "dtype": self._get_data_type_attribute(in0),
         }
         return self._op_proxy(
-            ttnn.DivideOp,
+            ttnn.DivOp,
             [in0, in1],
             ttnn_kwargs=ttnn_kwargs,
             unit_attrs=unit_attrs,

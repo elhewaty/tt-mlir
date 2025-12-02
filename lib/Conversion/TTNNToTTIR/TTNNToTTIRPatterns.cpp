@@ -242,7 +242,7 @@ addElementwiseBinaryOpsConversionPatterns(mlir::MLIRContext *ctx,
   patterns
       .add<TTNNToTTIRElementwiseConversionPattern<mlir::tt::ttnn::AddOp,
                                                   mlir::tt::ttir::AddOp>,
-           TTNNToTTIRElementwiseConversionPattern<mlir::tt::ttnn::DivideOp,
+           TTNNToTTIRElementwiseConversionPattern<mlir::tt::ttnn::DivOp,
                                                   mlir::tt::ttir::DivOp>,
            TTNNToTTIRElementwiseConversionPattern<mlir::tt::ttnn::MaxOp,
                                                   mlir::tt::ttir::MaximumOp>,

@@ -41,13 +41,13 @@ def atan2(
     return builder.atan2(in0, in1, unit_attrs=unit_attrs)
 
 
-def divide(
+def div(
     in0: Operand,
     in1: Operand,
     builder: TTNNBuilder,
     unit_attrs: Optional[List[str]] = None,
 ):
-    return builder.divide(in0, in1, unit_attrs=unit_attrs)
+    return builder.div(in0, in1, unit_attrs=unit_attrs)
 
 
 def logical_and(

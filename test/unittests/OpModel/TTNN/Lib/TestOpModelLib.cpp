@@ -1833,7 +1833,7 @@ using OpModelLogicalLeftShiftParam =
 using OpModelSubtractParam = OpModelBinaryEltwiseParam<SubtractOp>;
 using OpModelMaximumParam = OpModelBinaryEltwiseParam<MaximumOp>;
 using OpModelMinimumParam = OpModelBinaryEltwiseParam<MinimumOp>;
-using OpModelDivideParam = OpModelBinaryEltwiseParam<DivideOp>;
+using OpModelDivideParam = OpModelBinaryEltwiseParam<DivOp>;
 using OpModelEqualParam = OpModelBinaryEltwiseParam<EqualOp>;
 using OpModelNotEqualParam = OpModelBinaryEltwiseParam<NotEqualOp>;
 using OpModelGreaterEqualParam = OpModelBinaryEltwiseParam<GreaterEqualOp>;
@@ -1857,7 +1857,7 @@ TEST_P(OpModelLogicalLeftShiftParam, LogicalLeftShiftOp) { RunTestInt32(); }
 TEST_P(OpModelSubtractParam, SubtractOp) { RunTest(); }
 TEST_P(OpModelMaximumParam, MaximumOp) { RunTest(); }
 TEST_P(OpModelMinimumParam, MinimumOp) { RunTest(); }
-TEST_P(OpModelDivideParam, DivideOp) { RunTest(); }
+TEST_P(OpModelDivideParam, DivOp) { RunTest(); }
 TEST_P(OpModelEqualParam, EqualOp) { RunTest(); }
 TEST_P(OpModelNotEqualParam, NotEqualOp) { RunTest(); }
 TEST_P(OpModelGreaterEqualParam, GreaterEqualOp) { RunTest(); }

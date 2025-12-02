@@ -501,8 +501,6 @@ class GraphToIRTranslator:
         """Adjust operation name to match TTNN dialect names."""
         if op_name == "sub":
             op_name = "subtract"
-        elif op_name == "div":
-            op_name = "divide"
         elif op_name == "pow":
             op_name = "pow_tensor"
         return op_name

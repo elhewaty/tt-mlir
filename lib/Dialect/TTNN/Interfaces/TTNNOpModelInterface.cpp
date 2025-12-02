@@ -1179,18 +1179,18 @@ PowScalarOp::getOpRuntime(const std::vector<TTNNLayoutAttr> &inputs,
 }
 
 //===----------------------------------------------------------------------===//
-// DivideOp - TTNN Op Model Interface
+// DivOp - TTNN Op Model Interface
 //===----------------------------------------------------------------------===//
 
 llvm::Expected<op_model::OpConstraints>
-DivideOp::getOpConstraints(const std::vector<TTNNLayoutAttr> &inputs,
-                           const OpConfig &opConfig) {
+DivOp::getOpConstraints(const std::vector<TTNNLayoutAttr> &inputs,
+                        const OpConfig &opConfig) {
   return detail::getBinaryOpConstraints(*this, inputs, opConfig);
 }
 
 llvm::Expected<size_t>
-DivideOp::getOpRuntime(const std::vector<TTNNLayoutAttr> &inputs,
-                       const OpConfig &opConfig) {
+DivOp::getOpRuntime(const std::vector<TTNNLayoutAttr> &inputs,
+                    const OpConfig &opConfig) {
   return detail::getBinaryOpRuntime(*this, inputs, opConfig);
 }
 

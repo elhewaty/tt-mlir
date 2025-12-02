@@ -236,7 +236,7 @@ template <>
 struct OpModel<MinimumOp> : BinaryEltwiseOpModel<MinimumOp> {};
 
 template <>
-struct OpModel<DivideOp> : BinaryEltwiseOpModel<DivideOp> {};
+struct OpModel<DivOp> : BinaryEltwiseOpModel<DivOp> {};
 
 template <>
 struct OpModel<EqualOp> : BinaryEltwiseOpModel<EqualOp> {};

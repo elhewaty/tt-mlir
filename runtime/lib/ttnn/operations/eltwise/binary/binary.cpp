@@ -90,7 +90,7 @@ void run(const ::tt::target::ttnn::EltwiseBinaryOp *op,
     break;
   }
   case ::tt::target::ttnn::EltwiseBinaryOpType::Divide: {
-    runEltwiseBinaryOp(op, tensorPool, ::ttnn::divide);
+    runEltwiseBinaryOp(op, tensorPool, ::ttnn::div);
     break;
   }
   case ::tt::target::ttnn::EltwiseBinaryOpType::LogicalAnd: {

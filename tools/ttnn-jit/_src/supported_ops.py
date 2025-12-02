@@ -32,7 +32,7 @@ binary_ops = [
     "add",
     "multiply",
     "subtract",
-    "divide",
+    "div",
     "pow_tensor",
 ]
 

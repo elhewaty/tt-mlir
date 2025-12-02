@@ -487,7 +487,7 @@ const auto createMultiply = [](OpBuilder &b, Location l, Type t, ValueRange r) {
   return b.create<MultiplyOp>(l, t, r).getOperation();
 };
 const auto createDivide = [](OpBuilder &b, Location l, Type t, ValueRange r) {
-  return b.create<DivideOp>(l, t, r).getOperation();
+  return b.create<DivOp>(l, t, r).getOperation();
 };
 const auto createEqual = [](OpBuilder &b, Location l, Type t, ValueRange r) {
   return b.create<EqualOp>(l, t, r).getOperation();

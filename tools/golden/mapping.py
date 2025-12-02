@@ -4044,7 +4044,7 @@ GOLDEN_MAPPINGS: Dict[type, Callable] = {
     ttnn.Atan2Op: torch.atan2,
     ttnn.MultiplyOp: torch.multiply,
     ttnn.SubtractOp: torch.subtract,
-    ttnn.DivideOp: torch.div,
+    ttnn.DivOp: torch.div,
     ttnn.MaximumOp: torch.maximum,
     ttnn.MinimumOp: torch.minimum,
     ttnn.RemainderOp: torch.remainder,

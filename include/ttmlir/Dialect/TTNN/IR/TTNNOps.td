@@ -583,10 +583,10 @@ def TTNN_AddOp : TTNN_ElementwiseBinaryOp<"add"> {
     }];
 }
 
-def TTNN_DivideOp : TTNN_ElementwiseBinaryOp<"divide"> {
-    let summary = "Eltwise divide.";
+def TTNN_DivOp : TTNN_ElementwiseBinaryOp<"div"> {
+    let summary = "Eltwise div.";
     let description = [{
-      Eltwise divide operation.
+      Eltwise div operation.
     }];
 }
 

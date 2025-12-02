@@ -9,7 +9,7 @@ func.func @subtract(%arg0: tensor<224x64xf32>, %arg1: tensor<224x64xf32>) -> ten
 }
 
 func.func @div(%arg0: tensor<224x64xf32>, %arg1: tensor<224x64xf32>) -> tensor<224x64xf32> {
-  // CHECK: "ttnn.divide"
+  // CHECK: "ttnn.div"
   %0 = "ttir.div"(%arg0, %arg1) : (tensor<224x64xf32>, tensor<224x64xf32>) -> tensor<224x64xf32>
   return %0 : tensor<224x64xf32>
 }

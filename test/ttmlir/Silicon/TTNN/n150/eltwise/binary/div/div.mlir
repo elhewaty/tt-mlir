@@ -4,7 +4,7 @@
 
 func.func @div(%arg0: tensor<64x128xf32>, %arg1: tensor<64x128xf32>) -> tensor<64x128xf32> {
   %1 = "ttir.div"(%arg0, %arg1) : (tensor<64x128xf32>, tensor<64x128xf32>) -> tensor<64x128xf32>
-  // CHECK: "ttnn.divide"
+  // CHECK: "ttnn.div"
   // CHECK-SAME: tensor<64x128xf32
   // CHECK-SAME: tensor<64x128xf32
   // CHECK-SAME: -> tensor<64x128xf32

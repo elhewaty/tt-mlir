@@ -4094,7 +4094,7 @@ void populateTTNNToEmitCPatterns(mlir::MLIRContext *ctx,
       EltwiseBinaryOpConversionPattern<mlir::tt::ttnn::LessThanOp>,
       EltwiseBinaryNGCompositeOpConversionPattern<mlir::tt::ttnn::MaximumOp>,
       EltwiseBinaryNGCompositeOpConversionPattern<mlir::tt::ttnn::MinimumOp>,
-      EltwiseBinaryOpConversionPattern<mlir::tt::ttnn::DivideOp>,
+      EltwiseBinaryOpConversionPattern<mlir::tt::ttnn::DivOp>,
       EltwiseBinaryCompositeOpConversionPattern<
           mlir::tt::ttnn::LogicalLeftShiftOp>,
       EltwiseBinaryCompositeOpConversionPattern<mlir::tt::ttnn::RemainderOp>,
