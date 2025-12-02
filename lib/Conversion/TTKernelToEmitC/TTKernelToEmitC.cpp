@@ -878,6 +878,8 @@ public:
         TTKernelToEmitCOpaqueRewriter<ttkernel::SinTileOp>,
         TTKernelToEmitCOpaqueRewriter<ttkernel::TanTileInitOp>,
         TTKernelToEmitCOpaqueRewriter<ttkernel::TanTileOp>,
+        TTKernelToEmitCOpaqueRewriter<ttkernel::TanhTileInitOp>,
+        TTKernelToEmitCOpaqueRewriter<ttkernel::TanhTileOp>,
         TTKernelToEmitCOpaqueRewriter<ttkernel::TypecastTileInitOp>,
         TTKernelToEmitCOpaqueRewriter<ttkernel::TypecastTileOp>,
         TTKernelToEmitCOpaqueRewriter<ttkernel::UnaryBcastInitOp>,
