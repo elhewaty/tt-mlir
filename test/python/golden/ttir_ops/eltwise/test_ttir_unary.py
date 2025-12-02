@@ -160,6 +160,12 @@ def sigmoid(in0: Operand, builder: TTIRBuilder, unit_attrs: Optional[List[str]] 
     return builder.sigmoid(in0, unit_attrs=unit_attrs)
 
 
+def hardsigmoid(
+    in0: Operand, builder: TTIRBuilder, unit_attrs: Optional[List[str]] = None
+):
+    return builder.hardsigmoid(in0, unit_attrs=unit_attrs)
+
+
 def sign(in0: Operand, builder: TTIRBuilder, unit_attrs: Optional[List[str]] = None):
     return builder.sign(in0, unit_attrs=unit_attrs)
 
@@ -231,6 +237,7 @@ unary_ops = [
     relu6 | Marks(pytest.mark.skip_config(["ttmetal"])),
     rsqrt,
     sigmoid,
+    hardsigmoid | Marks(pytest.mark.skip_config(["emitpy"])),
     sign | Marks(pytest.mark.skip_config(["ttmetal"])),
     silu,
     sin,

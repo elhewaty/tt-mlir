@@ -165,6 +165,10 @@ def rsqrt(input_tensor):
     return ttnn.rsqrt(input_tensor)
 
 
+def hardsigmoid(input_tensor):
+    return ttnn.hardsigmoid(input_tensor)
+
+
 @pytest.mark.parametrize(
     "dtype, ttnn_dtype",
     [
@@ -184,6 +188,7 @@ def rsqrt(input_tensor):
         ceil,
         floor,
         logical_not,
+        hardsigmoid,
     ],
 )
 @pytest.mark.parametrize(
@@ -238,6 +243,7 @@ def test_unary_op_dram(device, shape, dtype, ttnn_dtype, op, graph_capture):
         ceil,
         floor,
         logical_not,
+        hardsigmoid,
         # Not supported in TTIRToD2M:
         # gelu, reciprocal cbrt, sign, erf, erfc
         # Always fails allclose
