@@ -1148,6 +1148,23 @@ static AffineMap rearrangeLogicalMap(ttir::RearrangeOp op) {
   return *maybeMap ;
 }
 
+static AffineMap sliceLogicalMap(ttir::SliceStaticOp op) {
+    MLIRContext *ctx = op.getContext();
+    SmallVector<int32_t> begins = extractFromIntegerArrayAttr<int32_t>(op.getBegins());
+    SmallVector<int32_t> ends = extractFromIntegerArrayAttr<int32_t>(op.getEnds());
+    SmallVector<int32_t> step = extractFromIntegerArrayAttr<int32_t>(op.getStep());
+    assert(begins.size() == ends.size());
+    assert(begins.size() == step.size());
+    assert(begins.size() == static_cast<size_t>(op.getInput().getType().getRank()));
+    assert(begins.size() == static_cast<size_t>(op.getResult().getType().getRank()));
+
+    SmallVector<AffineExpr> exprs;
+    for (size_t d = 0; d < begins.size(); d++) {
+        exprs.push_back(getAffineDimExpr(d, ctx) * step[d] + begins[d]);
+    }
+    return AffineMap::get(exprs.size(), 0, exprs, ctx);
+}
+
 } // namespace mlir::tt
 
 namespace mlir::tt {
@@ -1199,6 +1216,7 @@ void populateTTIRToD2MPatterns(MLIRContext *ctx, RewritePatternSet &patterns,
     D2MNamedElementwiseRewriter<ttir::TypecastOp,     d2m::TileTypecastOp>,
     // View ops.
     D2MTensorManipulationOpRewriter<ttir::RearrangeOp, rearrangeLogicalMap>,
+    D2MTensorManipulationOpRewriter<ttir::SliceStaticOp, sliceLogicalMap>,
     // Permute (handles tranpose ops, since they're canonicalized into permutes).
     D2MPermuteRewriter
   >(typeConverter, ctx, defaultInputMemSpace, defaultOutputMemSpace, ttnnMode, collapseTensors);
