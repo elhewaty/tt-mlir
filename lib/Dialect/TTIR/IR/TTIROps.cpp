@@ -2511,10 +2511,74 @@ foldConsecutiveSliceStatic(mlir::tt::ttir::SliceStaticOp consumerOp) {
   return nullptr;
 }
 
+// Fold slice of concat when taking an entire input tensor along the concat
+// dimension Pattern: slice(concat(t1, t2, ..., tn), dim=concat_dim,
+// begins=[..., offset, ...], ends=[..., offset + size_of_ti, ...]) -> ti This
+// eliminates unnecessary concatenation when only one input tensor is needed.
+static mlir::OpFoldResult
+foldSliceOfConcat(mlir::tt::ttir::SliceStaticOp sliceOp) {
+  auto concatOp = sliceOp.getInput().getDefiningOp<mlir::tt::ttir::ConcatOp>();
+  if (!concatOp) {
+    return nullptr;
+  }
+
+  mlir::ArrayAttr begins = sliceOp.getBeginsAttr();
+  mlir::ArrayAttr ends = sliceOp.getEndsAttr();
+  mlir::ArrayAttr stepAttr = sliceOp.getStepAttr();
+
+  int32_t concatDim = concatOp.getDim();
+
+  // Track offset along the concat dimension
+  int32_t offset = 0;
+
+  // Try every concat input to find one that matches the slice pattern
+  for (size_t inputIdx = 0; inputIdx < concatOp.getInputs().size();
+       ++inputIdx) {
+    auto curInput = concatOp.getInputs()[inputIdx];
+    auto curInputType = mlir::cast<mlir::RankedTensorType>(curInput.getType());
+    int64_t inputSize = curInputType.getShape()[concatDim];
+
+    bool matches = true;
+    for (size_t dimIdx = 0; dimIdx < begins.size(); ++dimIdx) {
+      int32_t begin = mlir::cast<::mlir::IntegerAttr>(begins[dimIdx]).getInt();
+      int32_t end = mlir::cast<::mlir::IntegerAttr>(ends[dimIdx]).getInt();
+      int32_t step = mlir::cast<::mlir::IntegerAttr>(stepAttr[dimIdx]).getInt();
+
+      if (dimIdx == static_cast<size_t>(concatDim)) {
+        // Check if the slice takes the entire current input along the concat
+        // dimension
+        if (begin != offset || end != offset + inputSize || step != 1) {
+          matches = false;
+          break;
+        }
+      } else {
+        // For non-concat dimensions, check if the slice takes the entire
+        // dimension
+        if (begin != 0 || end != curInputType.getShape()[dimIdx] || step != 1) {
+          matches = false;
+          break;
+        }
+      }
+    }
+
+    if (matches) {
+      return curInput;
+    }
+
+    offset += inputSize;
+  }
+
+  return nullptr;
+}
+
 // SliceStaticOp Folder
 mlir::OpFoldResult mlir::tt::ttir::SliceStaticOp::fold(FoldAdaptor adaptor) {
 
   if (auto foldResult = foldConsecutiveSliceStatic(*this)) {
+    return foldResult;
+  }
+
+  if (auto foldResult = foldSliceOfConcat(*this)) {
     return foldResult;
   }
 
